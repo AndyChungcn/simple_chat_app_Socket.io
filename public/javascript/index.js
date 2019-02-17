@@ -3,10 +3,6 @@ socket.on("connect", function() {
   console.log("socket connected to server!");
 
   // emit newEmail event
-  socket.emit("createEmail", {
-    to: "andy@gmail.com",
-    text: "hows going?"
-  });
 
   socket.emit("createMessage", {
     author: "andychung",
@@ -19,9 +15,6 @@ socket.on("disconnect", function() {
 });
 
 // listen to newEmail event
-socket.on("newEmail", function(email) {
-  console.log("new email received", email);
-});
 
 socket.on("newMessage", function(message) {
   console.log("new message: ", message);

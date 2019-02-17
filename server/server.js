@@ -14,25 +14,27 @@ io.on("connection", socket => {
     console.log("user was disconnected!");
   });
 
-  // Emit event
-  socket.emit("newEmail", {
-    from: "andy",
-    to: "john",
-    createdAt: 123
+  socket.emit("newMessage", {
+    author: "andy",
+    message: "welcome to this channel",
+    createdAt: new Date().getTime()
   });
 
-  socket.emit("newMessage", {
-    author: "andychung",
-    text: "socke.io is cool huh?"
+  socket.broadcast.emit("newMessage", {
+    author: "andy",
+    message: "welcome to my channel broadcast",
+    createdAt: new Date().getTime()
   });
 
   // listen event
-  socket.on("createEmail", newEmail => {
-    console.log(newEmail);
-  });
-
-  socket.on("createMessage", newMessage => {
-    console.log("new message: ", newMessage);
+  socket.on("createMessage", message => {
+    console.log("new message: ", message);
+    console.log("create message");
+    socket.broadcast.emit("newMessage", {
+      author: message.author,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 });
 
