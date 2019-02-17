@@ -11,7 +11,22 @@
       my first socket.io app
     </h1>
 
+    <ol id="showMessages"></ol>
+
+    <form id="form-selector">
+      name:<br />
+      <input type="text" name="userName" /><br />
+      Message:<br />
+      <input type="textarea" name="message" /><br />
+      <button type="submit">Send</button>
+    </form>
+
     <script src="/socket.io/socket.io.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
     <script src="javascript/index.js"></script>
   </body>
 </html>
