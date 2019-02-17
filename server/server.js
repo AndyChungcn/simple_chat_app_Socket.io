@@ -13,6 +13,27 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log("user was disconnected!");
   });
+
+  // Emit event
+  socket.emit("newEmail", {
+    from: "andy",
+    to: "john",
+    createdAt: 123
+  });
+
+  socket.emit("newMessage", {
+    author: "andychung",
+    text: "socke.io is cool huh?"
+  });
+
+  // listen event
+  socket.on("createEmail", newEmail => {
+    console.log(newEmail);
+  });
+
+  socket.on("createMessage", newMessage => {
+    console.log("new message: ", newMessage);
+  });
 });
 
 const PORT = process.env.PORT || 3000;
