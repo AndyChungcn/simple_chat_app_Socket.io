@@ -38,6 +38,18 @@ socket.on("disconnect", function() {
 
 // listen event
 
+// Update User List
+socket.on("updateUserList", function(users) {
+  var ol = $("<ol></ol>");
+
+  users.forEach(function(user) {
+    ol.append($("<li></li>").text(user));
+  });
+
+  $("#users").html(ol);
+});
+
+// New Message
 socket.on("newMessage", function(message) {
   var formattedTime = moment(message.createdAt).format("h:mm a");
   var template = $("#message-template").html();
@@ -51,6 +63,7 @@ socket.on("newMessage", function(message) {
   scrollToBottom();
 });
 
+// New Location Message
 socket.on("newLocationMessage", function(message) {
   var formattedTime = moment(message.createdAt).format("h:mm a");
   var template = $("#location-message-template").html();
@@ -63,7 +76,8 @@ socket.on("newLocationMessage", function(message) {
   scrollToBottom();
 });
 
-$("#message-form").on("submit", e => {
+// Send Message
+$("#message-form").on("submit", function(e) {
   e.preventDefault();
 
   var messageTextbox = $("[name=message]");
@@ -71,7 +85,6 @@ $("#message-form").on("submit", e => {
   socket.emit(
     "createMessage",
     {
-      from: "User",
       text: messageTextbox.val()
     },
     function() {
@@ -80,6 +93,7 @@ $("#message-form").on("submit", e => {
   );
 });
 
+// Send Location Message
 var locationButton = $("#send-location");
 locationButton.on("click", function() {
   if (!navigator.geolocation) {
@@ -100,7 +114,6 @@ locationButton.on("click", function() {
         alert("Only secure origins are allowed");
       }
       locationButton.removeAttr("disabled").text("Send location");
-
       alert("Unable to fetch location.");
     }
   );
