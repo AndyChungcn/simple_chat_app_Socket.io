@@ -5,22 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Simple Chat App using Socket.io</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="stylesheet/style.css" />
   </head>
-  <body>
-    <h1>
-      my first socket.io app
-    </h1>
+  <body class="chat">
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+    </div>
 
-    <ol id="showMessages"></ol>
+    <div class="chat__main">
+      <ol id="messages" class="chat__messages"></ol>
 
-    <form id="form-selector">
-      name:<br />
-      <input type="text" name="userName" /><br />
-      Message:<br />
-      <input type="textarea" name="message" /><br />
-      <button type="submit">Send</button>
-    </form>
-    <button type="button" id="send-location">Send Location</button>
+      <div class="chat__footer">
+        <form id="message-form">
+          <input
+            name="message"
+            type="text"
+            placeholder="Message"
+            autofocus
+            autocomplete="off"
+          />
+          <button>Send</button>
+        </form>
+        <button id="send-location">Send location</button>
+      </div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script

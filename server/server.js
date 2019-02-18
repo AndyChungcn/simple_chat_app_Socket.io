@@ -16,19 +16,26 @@ io.on("connection", socket => {
     console.log("user was disconnected!");
   });
 
-  // listen event
+  socket.emit(
+    "newMessage",
+    generateMessage("Admin", "Welcome to the chat app")
+  );
+
+  socket.broadcast.emit(
+    "newMessage",
+    generateMessage("Admin", "New user joined")
+  );
+
   socket.on("createMessage", (message, callback) => {
-    // emit event
+    console.log("createMessage", message);
     io.emit("newMessage", generateMessage(message.from, message.text));
+    callback();
   });
 
   socket.on("createLocation", coor => {
-    socket.emit(
-      "newMessage",
-      io.emit(
-        "newLocationMessage",
-        generateLocationMessage("Admin", coor.latitude, coor.longitude)
-      )
+    io.emit(
+      "newLocationMessage",
+      generateLocationMessage("Admin", coor.latitude, coor.longitude)
     );
   });
 });
